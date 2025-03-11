@@ -116,7 +116,20 @@ function calculateTotal() {
 // Exercise 4
 function applyPromotionsCart() {
   // Apply promotions to each item in the array "cart"
+  //primero iteramos sobre el array cart para ver que productos tienen campo "offer"
 
+  for (let producto of cart) {
+    if (producto.offer != null) {
+      //tiene campo offerta , luego puede ser que hay que apliacarle , vamos a ver el numero de prodcutos comprados
+      console.log("tiene");
+      if (producto.quantity >= producto.offer.number) {
+        //se han comprado suficientes unidades
+        producto.subtotalWithDiscount =
+          producto.price * (1 - producto.offer.percent / 100);
+        console.log("tienes una promo " + producto.subtotalWithDiscount);
+      }
+    }
+  }
 }
 
 // Exercise 5
@@ -132,13 +145,3 @@ function removeFromCart(id) {}
 function open_modal() {
   printCart();
 }
-
-
-   
-
-
-
-
-
-
-
