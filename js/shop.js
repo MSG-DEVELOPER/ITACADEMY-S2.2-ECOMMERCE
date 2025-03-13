@@ -97,6 +97,7 @@ function buy(id) {
 // Exercise 2
 function cleanCart() {
   cart.length = 0;
+  printCart();
 }
 
 // Exercise 3
@@ -104,13 +105,21 @@ function calculateTotal() {
   // Calculate total price of the cart using the "cartList" array
   let importeProducto = 0;
   let total = 0;
-
   for (let producto of cart) {
-    importeProducto = producto.price * producto.quantity;
-    total = total + importeProducto;
+    if (producto.subtotalWithDiscount == null) {
+      console.log("hola desde 109" ,producto);
+      importeProducto = producto.price * producto.quantity;
+      total = total + importeProducto;
+    }else{
+      importeProducto = producto.subtotalWithDiscount * producto.quantity;
+      total = total + importeProducto;
+    }
   }
 
-  console.log(total);
+  console.log("el total es" + total);
+  let totalPrice = document.getElementById("total_price");
+
+  totalPrice.innerHTML = total.toFixed(2);
 }
 
 // Exercise 4
@@ -135,12 +144,53 @@ function applyPromotionsCart() {
 // Exercise 5
 function printCart() {
   // Fill the shopping cart modal manipulating the shopping cart dom
+  //cuaando le das al boton de ver carrito se dispara una funcion , y esta llama a esta de aqui...
+
+  let contenidoCart=document.getElementById("cart_list");
+  contenidoCart.innerHTML="";
+  
+  applyPromotionsCart();
+
+  for (let product of cart) {
+    let cartList = document.getElementById("cart_list");
+    let newProduct = document.createElement("tr");
+    cartList.appendChild(newProduct);
+
+    let productName = document.createElement("th");
+    productName.textContent = product.name;
+    newProduct.appendChild(productName);
+
+    let productPrice = document.createElement("td");
+    productPrice.textContent = product.price;
+    newProduct.appendChild(productPrice);
+
+    let productQuantity = document.createElement("td");
+    productQuantity.textContent = product.quantity;
+    newProduct.appendChild(productQuantity);
+
+    let productTotal = document.createElement("td");
+    productTotal.textContent = calculateTotalModal(product);
+    newProduct.appendChild(productTotal);
+  }
+
+  function calculateTotalModal(product) {
+    if (product.subtotalWithDiscount != null) {
+      return (product.subtotalWithDiscount * product.quantity).toFixed(2);
+    } else {
+      return product.price * product.quantity;
+    }
+  }
+
+  calculateTotal();
 }
 
 // ** Nivell II **
 
 // Exercise 7
-function removeFromCart(id) {}
+function removeFromCart(id) {
+  // 1. Loop for to the array products to get the item to add to cart
+  // 2. Add found product to the cartList array
+}
 
 function open_modal() {
   printCart();
