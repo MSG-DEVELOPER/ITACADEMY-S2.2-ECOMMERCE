@@ -78,20 +78,19 @@ var total = 0;
 function buy(id) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array
-  let productOnCart = cart.find((product) => product.id === id); //vemos si el producto que queremos comprar ya hay del mismo tipo en el array cart
+  let productOnCart = cart.find((product) => product.id === id); 
 
   if (!productOnCart) {
-    console.log("no esta"); //si no está añadimos la propiedad quantity i fijamos en 1
-    let currentProduct = products.find((product) => product.id === id); //
+   
+    let currentProduct = products.find((product) => product.id === id); 
     currentProduct.quantity = 1;
     cart.push(currentProduct);
   } else {
-    //el producto que quiero comprar ya hay en el carrito asi que solo hay que incrementar cantidad
-    console.log("ya está!");
+    
     productOnCart.quantity += 1;
   }
 
-  console.log(cart); //para ver que funciona borra despues
+  
 }
 
 // Exercise 2
@@ -107,7 +106,7 @@ function calculateTotal() {
   let total = 0;
   for (let producto of cart) {
     if (producto.subtotalWithDiscount == null) {
-      console.log("hola desde 109" ,producto);
+    
       importeProducto = producto.price * producto.quantity;
       total = total + importeProducto;
     }else{
@@ -116,7 +115,7 @@ function calculateTotal() {
     }
   }
 
-  console.log("el total es" + total);
+  
   let totalPrice = document.getElementById("total_price");
 
   totalPrice.innerHTML = total.toFixed(2);
@@ -129,13 +128,11 @@ function applyPromotionsCart() {
 
   for (let producto of cart) {
     if (producto.offer != null) {
-      //tiene campo offerta , luego puede ser que hay que apliacarle , vamos a ver el numero de prodcutos comprados
-      console.log("tiene");
+      
       if (producto.quantity >= producto.offer.number) {
-        //se han comprado suficientes unidades
+       
         producto.subtotalWithDiscount =
           producto.price * (1 - producto.offer.percent / 100);
-        console.log("tienes una promo " + producto.subtotalWithDiscount);
       }
     }
   }
@@ -144,7 +141,6 @@ function applyPromotionsCart() {
 // Exercise 5
 function printCart() {
   // Fill the shopping cart modal manipulating the shopping cart dom
-  //cuaando le das al boton de ver carrito se dispara una funcion , y esta llama a esta de aqui...
 
   let contenidoCart=document.getElementById("cart_list");
   contenidoCart.innerHTML="";
@@ -171,6 +167,16 @@ function printCart() {
     let productTotal = document.createElement("td");
     productTotal.textContent = calculateTotalModal(product);
     newProduct.appendChild(productTotal);
+
+    let removeItem = document.createElement("img"); 
+    removeItem.src="../images/trash.png"
+    newProduct.appendChild(removeItem);
+
+    removeItem.addEventListener("click", function() {
+      
+      removeFromCart( product.id);
+     
+    });
   }
 
   function calculateTotalModal(product) {
@@ -190,7 +196,37 @@ function printCart() {
 function removeFromCart(id) {
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cartList array
+
+
+let productoToRemove= cart.find(product => id==product.id);
+
+
+productoToRemove.quantity -= 1;
+
+checkRemoveOffer(productoToRemove);
+checkRemoveProduct(productoToRemove,id);
+
+printCart();
+
 }
+
+function checkRemoveOffer(product){
+
+  if(product.subtotalWithDiscount != null)
+    if(product.quantity < product.offer.number)
+      delete product.subtotalWithDiscount;
+    
+  
+}
+
+function checkRemoveProduct(product,idToRemove){
+  if(product.quantity==0){
+    let indexProductToRemove=cart.findIndex(producto => producto.id == idToRemove);
+    cart.splice(indexProductToRemove, 1);
+  }
+
+}
+
 
 function open_modal() {
   printCart();
