@@ -87,7 +87,42 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background: radial-gradient(circle, rgba(110,57,80,0.4066001400560224) 27%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.35898109243697474) 83%);
 }
+
+h1 {
+  font-family: 'Old Standard TT', serif;
+}
+
+.btn-vintage {
+  background-color:white;  
+  color: #fff;             
+  border: 2px solid #fff;  
+  font-family: 'Times New Roman', serif; 
+  padding: 10px 20px;
+  text-transform: uppercase; 
+  letter-spacing: 2px;      
+  border-radius: 8px;       
+  transition: all 0.3s ease-in-out;
+  font-weight: bolder !important;
+}
+
+
+.btn-vintage:hover {
+  cursor: crosshair !important;
+  
+  color: #222;             
+  border-color: #222;       
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 1);
+  
+}
+
+/* Efecto active */
+.btn-vintage:active {
+  transform: scale(0.98);   /* Efecto de presionar el botón */
+}
+
+
 
 .marker {
   border: solid 5px black !important;
@@ -4548,6 +4583,7 @@ textarea.form-control-lg {
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+  background-color:burlywood;
 }
 
 .card-title {
@@ -4581,9 +4617,11 @@ textarea.form-control-lg {
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: burlywood !important;
 }
 .card-footer:last-child {
   border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+  background-color: burlywood;
 }
 
 .card-header-tabs {
