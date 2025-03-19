@@ -12,16 +12,17 @@ function validate() {
   // Get the error elements
   var errorName = document.getElementById("errorName");
   var errorEmail = document.getElementById("errorEmail");
-  var errorAddress = document.getElementById("errorAdress");
+  var errorAddress = document.getElementById("errorAddress");
   var errorLastN = document.getElementById("errorLastN");
   var errorPassword = document.getElementById("errorPassword");
   var errorPhone = document.getElementById("errorPhone");
 
   const regexName = /^[A-Za-zÁÉÍÓÚáéíóúñÑ]{3,}$/;
   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const regexAdress = /^[a-zA-Z0-9.-]+$/;
+  const regexAdress = /^[a-zA-Z0-9.-\s]+$/;
   const regexPassword = /^(?=.*[A-Za-z])(?=.*\d).{3,}$/;
   const regexTelefono = /^[0-9]{9}$/;
+
 
   // Validate fields entered by the user: name, phone, password, and email
   if (fName.value == "" || fName.value.match(regexName) == null) {
@@ -82,8 +83,8 @@ function validate() {
 
 
   if (error > 0) {
-    alert("Error");
+   
   } else {
-    alert("OK");
+    
   }
 }
